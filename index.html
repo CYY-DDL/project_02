@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+
+        background-color: aliceblue;
+      }
+      div {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        background-color: chocolate;
+        border-radius: 25px;
+        box-shadow: 1px 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <div></div>
+    <script>
+      // 前提要给盒子加上绝对定位
+      const div = document.querySelector("div");
+      div.addEventListener("mousedown", function (e) {
+        let x = e.clientX - div.offsetLeft;
+        let y = e.clientY - div.offsetTop;
+        //  console.log(x,y);  获取的是鼠标在盒子里面到可视区域的距离
+        function close(e) {
+          div.style.left = e.clientX - x + "px";
+          div.style.top = e.clientY - y + "px";
+        }
+        document.addEventListener("mousemove", close);
+        document.addEventListener("mouseup", function up() {
+          document.removeEventListener("mousemove", close); //解绑事件
+          document.removeEventListener("mouseup", up); //事件解绑，防止页面下面还触发别的事件
+          // alert(111)
+        });
+      });
+    </script>
+  </body>
+</html>
